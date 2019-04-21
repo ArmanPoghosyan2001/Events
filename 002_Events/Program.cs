@@ -4,51 +4,55 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Events
+namespace _002_Events
 {
     public delegate void EventDelegate();
 
     public class MyClass
     {
-        public event EventDelegate myEvent = null;
+        EventDelegate myEvent = null;
+
+        public event EventDelegate MyEvent
+        {
+            add { MyEvent += value; }
+            remove { MyEvent -= value; }
+        }
 
         public void InvokeEvent()
         {
             myEvent.Invoke();
         }
+
     }
-
-
 
     class Program
     {
         static private void Handler1()
         {
-            Console.WriteLine("Event 1 handler");
+            Console.WriteLine("Handler 1");
         }
 
         static private void Handler2()
         {
-            Console.WriteLine("Event 2 handler");
+            Console.WriteLine("Handler 2");
         }
-
 
         static void Main(string[] args)
         {
             MyClass instance = new MyClass();
 
-            instance.myEvent += new EventDelegate(Handler1);
-            instance.myEvent += Handler2;
+            instance.MyEvent += Handler1;
+            instance.MyEvent += Handler2;
 
             instance.InvokeEvent();
 
-            Console.WriteLine(new string('-',25));
+            Console.WriteLine(new string('-',25);
 
-            instance.myEvent -= new EventDelegate(Handler2);
+            instance.MyEvent -= Handler2;
+
             instance.InvokeEvent();
-
+            
             Console.ReadKey();
-
         }
     }
 }
